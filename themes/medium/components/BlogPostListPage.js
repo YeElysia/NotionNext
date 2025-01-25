@@ -24,9 +24,10 @@ const BlogPostListPage = ({ page = 1, posts = [], postCount }) => {
 
   return (
     <>
-    <div className='w-full justify-center'>
+    <div className='w-full justify-center' my-5>
       <div className='w-full my-5 text-center text-xl' >
-        <h1 className='text-center'>欢迎</h1>
+        <h1 className='text-center'>本站主页维修中</h1>
+        <h1 className='text-center'>查看文章请点击最上方导航栏</h1>
       </div>
     </div>
     { /*<div className='w-full justify-center'>

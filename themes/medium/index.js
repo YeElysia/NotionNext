@@ -94,7 +94,7 @@ const LayoutBase = props => {
 
             <div
               id='container-inner'
-              className={`px-7  justify-center mx-auto min-h-screen`}>
+              className={`px-7 ${fullWidth || useRouter().pathname === '/' ? '' : 'max-w-5xl'} justify-center mx-auto min-h-screen`}>
               <Transition
                 show={!onLoading}
                 appear={true}
