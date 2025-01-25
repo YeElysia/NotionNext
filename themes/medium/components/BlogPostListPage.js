@@ -3,6 +3,7 @@ import { useGlobal } from '@/lib/global'
 import BlogPostCard from './BlogPostCard'
 import BlogPostListEmpty from './BlogPostListEmpty'
 import PaginationSimple from './PaginationSimple'
+import Hero from './Hero'
 
 /**
  * 文章列表分页表格
@@ -22,15 +23,22 @@ const BlogPostListPage = ({ page = 1, posts = [], postCount }) => {
   }
 
   return (
+    <>
     <div className='w-full justify-center'>
+      <div className='w-full my-5 text-center text-xl' >
+        <h1 className='text-center'>欢迎</h1>
+      </div>
+    </div>
+    { /*<div className='w-full justify-center'>
       <div id='posts-wrapper'>
-        {/* 文章列表 */}
+        /* 文章列表 
         {posts?.map(post => (
           <BlogPostCard key={post.id} post={post} />
         ))}
       </div>
       <PaginationSimple page={page} totalPage={totalPage} />
-    </div>
+    </div> */}
+    </>
   )
 }
 

@@ -9,6 +9,8 @@ import CONFIG from '../config'
 import CategoryItem from './CategoryItem'
 import TagItemMini from './TagItemMini'
 
+// 主页文章单个显示卡片
+
 const BlogPostCard = ({ post, showSummary }) => {
   const showPreview =
     siteConfig('MEDIUM_POST_LIST_PREVIEW', null, CONFIG) && post.blockMap

@@ -35,6 +35,8 @@ import TopNavBar from './components/TopNavBar'
 import CONFIG from './config'
 import { Style } from './style'
 
+import Hero from './components/Hero'
+
 // 主题全局状态
 const ThemeGlobalMedium = createContext()
 export const useMediumGlobal = () => useContext(ThemeGlobalMedium)
@@ -92,7 +94,7 @@ const LayoutBase = props => {
 
             <div
               id='container-inner'
-              className={`px-7 ${fullWidth ? '' : 'max-w-5xl'} justify-center mx-auto min-h-screen`}>
+              className={`px-7  justify-center mx-auto min-h-screen`}>
               <Transition
                 show={!onLoading}
                 appear={true}
@@ -161,6 +163,7 @@ const LayoutIndex = props => {
 const LayoutPostList = props => {
   return (
     <>
+      <Hero {...props} />
       {siteConfig('POST_LIST_STYLE') === 'page' ? (
         <BlogPostListPage {...props} />
       ) : (
