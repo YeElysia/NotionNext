@@ -230,8 +230,6 @@ const LayoutSlug = props => {
 
       {!lock && post && (
         <div>
-          {/* 文章信息 */}
-          <ArticleInfo {...props} />
 
           {/* Notion文章主体 */}
           <article id='article-wrapper' className='px-1 max-w-4xl'>

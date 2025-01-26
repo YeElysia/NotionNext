@@ -38,13 +38,10 @@ export default function PostHeader({ post, siteInfo, isDarkMode }) {
       `}</style>
 
       <div
-        className={`${isDarkMode ? 'bg-[#CA8A04]' : 'bg-[#0060e0]'} absolute top-0 w-full h-full py-10 flex justify-center items-center`}>
+        className={`${isDarkMode ? 'bg-gradient-to-r from-[#CA8A04] to-transparent' : 'bg-gradient-to-r from-[#0060e0] to-transparent'} absolute top-0 w-full h-full py-10 flex justify-center items-center`}>
         {/* 文章背景图 */}
         <div
           id='post-cover-wrapper'
-          style={{
-            filter: 'blur(15px)'
-          }}
           className='coverdiv lg:opacity-50 lg:translate-x-96 lg:rotate-12'>
           <LazyImage
             id='post-cover'
@@ -71,25 +68,6 @@ export default function PostHeader({ post, siteInfo, isDarkMode }) {
                   </div>
                 </Link>
               </>
-            )}
-
-            {post.tagItems && (
-              <div className='hidden md:flex justify-center flex-nowrap overflow-x-auto'>
-                {post.tagItems.map((tag, index) => (
-                  <Link
-                    key={index}
-                    href={`/tag/${encodeURIComponent(tag.name)}`}
-                    passHref
-                    className={
-                      'cursor-pointer inline-block text-gray-50 hover:text-white duration-200 py-0.5 px-1 whitespace-nowrap '
-                    }>
-                    <div className='font-light flex items-center'>
-                      <HashTag className='text-gray-200 stroke-2 mr-0.5 w-3 h-3' />{' '}
-                      {tag.name + (tag.count ? `(${tag.count})` : '')}{' '}
-                    </div>
-                  </Link>
-                ))}
-              </div>
             )}
           </div>
 

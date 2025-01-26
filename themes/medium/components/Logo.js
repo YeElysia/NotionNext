@@ -9,7 +9,7 @@ const Logo = props => {
     <Link href='/' passHref legacyBehavior>
       <div className='flex flex-nowrap items-center cursor-pointer font-extrabold'>
         <LazyImage
-          src={siteInfo?.icon}
+          src='https://raw.githubusercontent.com/YeElysia/Yee_Image/refs/heads/master/firefly.png'
           width={24}
           height={24}
           alt={siteConfig('AUTHOR')}

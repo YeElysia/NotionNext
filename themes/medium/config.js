@@ -34,8 +34,8 @@ const CONFIG = {
   HEO_HERO_TITLE_1: '永世乐土',
   HEO_HERO_TITLE_2: '花与鸟与箭',
   HEO_HERO_TITLE_3: 'version1.1',
-  HEO_HERO_TITLE_4: '新版上线',
-  HEO_HERO_TITLE_5: 'NotionNext4.0 轻松定制主题',
+  HEO_HERO_TITLE_4: '',
+  HEO_HERO_TITLE_5: '',
   HEO_HERO_TITLE_LINK: 'lhttps://www.elysium-everlasting.cn/',
   // 英雄区遮罩文字
   HEO_HERO_COVER_TITLE: '随便逛逛',
@@ -45,8 +45,8 @@ const CONFIG = {
       title_1: 'AfterEffect',
       img_1: '/images/heo/20239df3f66615b532ce571eac6d14ff21cf072602.webp',
       color_1: '#989bf8',
-      title_2: 'Vscode',
-      img_2: 'https://raw.githubusercontent.com/YeElysia/Yee_Image/refs/heads/master/Icons/vscode.png',
+      title_2: 'Linux',
+      img_2: 'https://raw.githubusercontent.com/YeElysia/Yee_Image/refs/heads/master/Icons/linux.png',
       color_2: '#ffffff'
     },
     {
@@ -58,7 +58,7 @@ const CONFIG = {
       color_2: '#4082c3'
     },
     {
-      title_1: 'Pr',
+      title_1: 'Premiere Pro',
       img_1: 'https://raw.githubusercontent.com/YeElysia/Yee_Image/refs/heads/master/Icons/Pr.png',
       color_1: '#989bf8',
       title_2: 'Python',
@@ -80,6 +80,14 @@ const CONFIG = {
       title_2: 'HTML',
       img_2: '/images/heo/202372b4d760fd8a497d442140c295655426070302.webp',
       color_2: '#e9572b'
+    },
+    {
+      title_1: 'C++',
+      img_1: 'https://raw.githubusercontent.com/YeElysia/Yee_Image/refs/heads/master/Icons/cpp.png',
+      color_1: '#ffffff',
+      title_2: 'OpenCV',
+      img_2: 'https://raw.githubusercontent.com/YeElysia/Yee_Image/refs/heads/master/Icons/opencv.png',
+      color_2: '#2e3a41'
     }
   ],
 }
