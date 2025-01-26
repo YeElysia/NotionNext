@@ -31,11 +31,13 @@ import SearchInput from './components/SearchInput'
 import TagGroups from './components/TagGroups'
 import TagItemMini from './components/TagItemMini'
 import TocDrawer from './components/TocDrawer'
-import TopNavBar from './components/TopNavBar'
 import CONFIG from './config'
 import { Style } from './style'
 
 import Hero from './components/Hero'
+import { NoticeBar } from './components/NoticeBar'
+import Header from './components/Header'
+import PostHeader from './components/PostHeader'
 
 // 主题全局状态
 const ThemeGlobalMedium = createContext()
@@ -52,7 +54,7 @@ const LayoutBase = props => {
   const { locale } = useGlobal()
   const router = useRouter()
   const [tocVisible, changeTocVisible] = useState(false)
-  const { onLoading, fullWidth } = useGlobal()
+  const { onLoading, fullWidth,isDarkMode } = useGlobal()
   const [slotRight, setSlotRight] = useState(null)
 
   useEffect(() => {
@@ -89,12 +91,24 @@ const LayoutBase = props => {
 
           {/* 主区 */}
           <div id='container-wrapper' className='w-full relative z-10'>
-            {/* 顶部导航栏 */}
-            <TopNavBar {...props} />
+            <header>
+              {/* 顶部导航 */}
+              <Header {...props} />
+
+              {/* 通知横幅 */}
+              {router.route === '/' ? (
+                <>
+                  <NoticeBar />
+                </>
+              ) : null}
+              {fullWidth ? null : (
+                <PostHeader {...props} isDarkMode={isDarkMode} />
+              )}
+            </header>
 
             <div
               id='container-inner'
-              className={`px-7 ${fullWidth || useRouter().pathname === '/' ? '' : 'max-w-5xl'} justify-center mx-auto min-h-screen`}>
+              className={`px-7 ${fullWidth || router.pathname === '/' ? '' : 'max-w-5xl'} justify-center mx-auto min-h-screen`}>
               <Transition
                 show={!onLoading}
                 appear={true}
