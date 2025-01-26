@@ -37,8 +37,6 @@ const CONFIG = {
   HEO_HERO_TITLE_4: '',
   HEO_HERO_TITLE_5: '',
   HEO_HERO_TITLE_LINK: 'lhttps://www.elysium-everlasting.cn/',
-  // 英雄区遮罩文字
-  HEO_HERO_COVER_TITLE: '随便逛逛',
 
   HEO_GROUP_ICONS: [
     {
