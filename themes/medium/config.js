@@ -22,10 +22,10 @@ const CONFIG = {
   MEDIUM_WIDGET_TO_TOP: true, // 跳回顶部
 
   HEO_NOTICE_BAR: [
-    { title: '欢迎来到我的博客', url: 'https://blog.tangly1024.com' },
-    { title: '访问文档中心获取更多帮助', url: 'https://docs.tangly1024.com' }
+    { title: '欢迎来到我的博客', url: 'https://www.elysium-everlasting.com' },
+    { title: '访问文档中心获取更多帮助', url: 'https://www.elysium-everlasting.cn/about' }
   ],
-  
+
   HEO_HERO_CATEGORY_1: { title: '请勿点击', url: '/' },
   HEO_HERO_CATEGORY_2: { title: '请勿点击', url: '/' },
   HEO_HERO_CATEGORY_3: { title: '请勿点击', url: '/' },
@@ -36,7 +36,7 @@ const CONFIG = {
   HEO_HERO_TITLE_3: 'version1.1',
   HEO_HERO_TITLE_4: '新版上线',
   HEO_HERO_TITLE_5: 'NotionNext4.0 轻松定制主题',
-  HEO_HERO_TITLE_LINK: 'https://tangly1024.com',
+  HEO_HERO_TITLE_LINK: 'lhttps://www.elysium-everlasting.cn/',
   // 英雄区遮罩文字
   HEO_HERO_COVER_TITLE: '随便逛逛',
 
