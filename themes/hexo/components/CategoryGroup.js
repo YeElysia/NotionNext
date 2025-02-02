@@ -21,6 +21,7 @@ const CategoryGroup = ({ currentCategory, categories }) => {
             <div> <i className={`mr-2 fas ${selected ? 'fa-folder-open' : 'fa-folder'}`} />{category.name}({category.count})</div>
 
           </Link>
+          
         );
       })}
     </div>

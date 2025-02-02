@@ -7,12 +7,6 @@
 const Style = () => {
   return (
     <style jsx global>{`
-      // 主题色
-      @theme {
-        --color-valya-qing: #00ffdc;
-        --color-valya-lan:  #3097e8;
-      }
-
       // 底色
       .dark body {
         background-color: black;
@@ -33,7 +27,7 @@ const Style = () => {
       }
 
       /*  菜单下划线动画 */
-      #theme-medium .menu-link {
+      #theme-hexo .menu-link {
         text-decoration: none;
         background-image: linear-gradient(#928cee, #928cee);
         background-repeat: no-repeat;
@@ -42,13 +36,13 @@ const Style = () => {
         transition: background-size 100ms ease-in-out;
       }
 
-      #theme-medium .menu-link:hover {
+      #theme-hexo .menu-link:hover {
         background-size: 100% 2px;
         color: #928cee;
       }
 
       /* 设置了从上到下的渐变黑色 */
-      #theme-medium .header-cover::before {
+      #theme-hexo .header-cover::before {
         content: '';
         position: absolute;
         top: 0;

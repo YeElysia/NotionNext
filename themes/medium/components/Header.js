@@ -1,190 +1,134 @@
 import { siteConfig } from '@/lib/config'
-import { isBrowser } from '@/lib/utils'
+import { useGlobal } from '@/lib/global'
 import throttle from 'lodash.throttle'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import DarkModeButton from './DarkModeButton'
+import CONFIG from '../config'
 import Logo from './Logo'
 import { MenuListTop } from './MenuListTop'
-import ReadingProgress from './ReadingProgress'
-import SlideOver from './SlideOver'
+import SideBar from './SideBar'
+import SideBarDrawer from './SideBarDrawer'
+
+let windowTop = 0
 
 /**
- * 页头：顶部导航
+ * 顶部导航
  * @param {*} param0
  * @returns
  */
 const Header = props => {
-  const [fixedNav, setFixedNav] = useState(false)
-  const [textWhite, setTextWhite] = useState(false)
-  const [navBgWhite, setBgWhite] = useState(false)
-  const [activeIndex, setActiveIndex] = useState(0)
-
+  const searchDrawer = useRef()
+  const { tags, currentTag, categories, currentCategory } = props
+  const { locale } = useGlobal()
   const router = useRouter()
-  const slideOverRef = useRef()
+  const [isOpen, changeShow] = useState(false)
+  const showSearchButton = siteConfig('HEXO_MENU_SEARCH', false, CONFIG)
+  const showRandomButton = siteConfig('HEXO_MENU_RANDOM', false, CONFIG)
 
   const toggleMenuOpen = () => {
-    slideOverRef?.current?.toggleSlideOvers()
+    changeShow(!isOpen)
   }
 
-  /**
-   * 根据滚动条，切换导航栏样式
-   */
-  const scrollTrigger = useCallback(
-    throttle(() => {
-      const scrollS = window.scrollY
-      // 导航栏设置 白色背景
-      if (scrollS <= 1) {
-        setFixedNav(false)
-        setBgWhite(false)
-        setTextWhite(false)
-
-        // 文章详情页特殊处理
-        if (document?.querySelector('#post-bg')) {
-          setFixedNav(true)
-          setTextWhite(true)
-        }
-      } else {
-        // 向下滚动后的导航样式
-        setFixedNav(true)
-        setTextWhite(false)
-        setBgWhite(true)
-      }
-    }, 100)
-  )
-  useEffect(() => {
-    scrollTrigger()
-  }, [router])
+  const toggleSideBarClose = () => {
+    changeShow(false)
+  }
 
   // 监听滚动
   useEffect(() => {
-    window.addEventListener('scroll', scrollTrigger)
+    window.addEventListener('scroll', topNavStyleHandler)
+    router.events.on('routeChangeComplete', topNavStyleHandler)
+    topNavStyleHandler()
     return () => {
-      window.removeEventListener('scroll', scrollTrigger)
+      router.events.off('routeChangeComplete', topNavStyleHandler)
+      window.removeEventListener('scroll', topNavStyleHandler)
     }
   }, [])
 
-  // 导航栏根据滚动轮播菜单内容
-  useEffect(() => {
-    let prevScrollY = 0
-    let ticking = false
+  const throttleMs = 200
 
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const currentScrollY = window.scrollY
-          if (currentScrollY > prevScrollY) {
-            setActiveIndex(1) // 向下滚动时设置activeIndex为1
-          } else {
-            setActiveIndex(0) // 向上滚动时设置activeIndex为0
-          }
-          prevScrollY = currentScrollY
-          ticking = false
-        })
-        ticking = true
+  const topNavStyleHandler = useCallback(
+    throttle(() => {
+      const scrollS = window.scrollY
+      const nav = document.querySelector('#sticky-nav')
+      // 首页和文章页会有头图
+      const header = document.querySelector('#header')
+      // 导航栏和头图是否重叠
+      const scrollInHeader =
+        header && (scrollS < 10 || scrollS < header?.clientHeight - 50) // 透明导航条的条件
+
+      // const textWhite = header && scrollInHeader
+
+      if (scrollInHeader) {
+        nav && nav.classList.replace('bg-white', 'bg-none')
+        nav && nav.classList.replace('border', 'border-transparent')
+        nav && nav.classList.replace('drop-shadow-md', 'shadow-none')
+        nav && nav.classList.replace('dark:bg-hexo-black-gray', 'transparent')
+      } else {
+        nav && nav.classList.replace('bg-none', 'bg-white')
+        nav && nav.classList.replace('border-transparent', 'border')
+        nav && nav.classList.replace('shadow-none', 'drop-shadow-md')
+        nav && nav.classList.replace('transparent', 'dark:bg-hexo-black-gray')
       }
-    }
 
-    if (isBrowser) {
-      window.addEventListener('scroll', handleScroll)
-    }
-
-    return () => {
-      if (isBrowser) {
-        window.removeEventListener('scroll', handleScroll)
+      if (scrollInHeader) {
+        nav && nav.classList.replace('text-black', 'text-white')
+      } else {
+        nav && nav.classList.replace('text-white', 'text-black')
       }
-    }
-  }, [])
+
+      // 导航栏不在头图里，且页面向下滚动一定程度 隐藏导航栏
+      const showNav =
+        scrollS <= windowTop ||
+        scrollS < 5 ||
+        (header && scrollS <= header.clientHeight + 100)
+      if (!showNav) {
+        nav && nav.classList.replace('top-0', '-top-20')
+        windowTop = scrollS
+      } else {
+        nav && nav.classList.replace('-top-20', 'top-0')
+        windowTop = scrollS
+      }
+    }, throttleMs)
+  )
 
   return (
-    <>
-      <style jsx>{`
-        @keyframes fade-in-down {
-          0% {
-            opacity: 0.5;
-            transform: translateY(-30%);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
+    <div id='top-nav' className='z-40'>
+      {/* 导航栏 */}
+      <div
+        id='sticky-nav'
+        style={{ backdropFilter: 'blur(3px)' }}
+        className={
+          'top-0 duration-300 transition-all  shadow-none fixed bg-none dark:bg-hexo-black-gray dark:text-gray-200 text-black w-full z-20 transform border-transparent dark:border-transparent'
+        }>
+        <div className='w-full flex justify-between items-center px-4 py-2'>
+          <div className='flex'>
+            <Logo {...props} />
+          </div>
 
-        @keyframes fade-in-up {
-          0% {
-            opacity: 0.5;
-            transform: translateY(30%);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        .fade-in-down {
-          animation: fade-in-down 0.3s ease-in-out;
-        }
-
-        .fade-in-up {
-          animation: fade-in-up 0.3s ease-in-out;
-        }
-      `}</style>
-
-      {/* fixed时留白高度 */}
-      {fixedNav && !document?.querySelector('#post-bg') && (
-        <div className='h-16'></div>
-      )}
-
-      {/* 顶部导航菜单栏 */}
-      <nav
-        id='nav'
-        className={`z-20 h-16 top-0 w-full duration-300 transition-all
-            ${fixedNav ? 'fixed' : 'relative bg-transparent'} 
-            ${textWhite ? 'text-white ' : 'text-black dark:text-white'}  
-            ${navBgWhite ? 'bg-white dark:bg-[#18171d] shadow' : 'bg-transparent'}`}>
-        <div className='flex h-full mx-auto justify-between items-center max-w-[86rem] px-6'>
-          {/* 左侧logo */}
-          <Logo {...props} />
-
-          {/* 中间菜单 */}
-          <div
-            id='nav-bar-swipe'
-            className={`hidden lg:flex flex-grow flex-col items-center justify-center h-full relative w-full`}>
-            <div
-              className={`absolute transition-all duration-700 ${activeIndex === 0 ? 'opacity-100 mt-0' : '-mt-20 opacity-0 invisible'}`}>
+          {/* 右侧功能 */}
+          <div className='mr-1 flex justify-end items-center '>
+            <div className='hidden lg:flex'>
+              {' '}
               <MenuListTop {...props} />
             </div>
             <div
-              className={`absolute transition-all duration-700 ${activeIndex === 1 ? 'opacity-100 mb-0' : '-mb-20 opacity-0 invisible'}`}>
-              <h1 className='font-bold text-center text-light-400 dark:text-gray-400'>
-                {siteConfig('AUTHOR') || siteConfig('TITLE')}{' '}
-                {siteConfig('BIO') && <>|</>} {siteConfig('BIO')}
-              </h1>
-            </div>
-          </div>
-
-          {/* 右侧固定 */}
-          <div className='flex flex-shrink-0 justify-end items-center w-48'>
-            {!JSON.parse(siteConfig('THEME_SWITCH')) && (
-              <div className='hidden md:block'>
-                <DarkModeButton {...props} />
-              </div>
-            )}
-            <ReadingProgress />
-
-            {/* 移动端菜单按钮 */}
-            <div
               onClick={toggleMenuOpen}
-              className='flex lg:hidden w-8 justify-center items-center h-8 cursor-pointer'>
-              <i className='fas fa-bars' />
+              className='w-8 justify-center items-center h-8 cursor-pointer flex lg:hidden'>
+              {isOpen ? (
+                <i className='fas fa-times' />
+              ) : (
+                <i className='fas fa-bars' />
+              )}
             </div>
           </div>
-
-          {/* 右边侧拉抽屉 */}
-          <SlideOver cRef={slideOverRef} {...props} />
         </div>
-      </nav>
-    </>
+      </div>
+
+      {/* 折叠侧边栏 */}
+      <SideBarDrawer isOpen={isOpen} onClose={toggleSideBarClose}>
+        <SideBar {...props} />
+      </SideBarDrawer>
+    </div>
   )
 }
 

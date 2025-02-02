@@ -12,21 +12,23 @@ const CONFIG = {
 
   // 菜单
   MEDIUM_MENU_CATEGORY: true, // 显示分类
-  MEDIUM_MENU_TAG: true, // 显示标签
+  MEDIUM_MENU_TAG: false, // 显示标签
   MEDIUM_MENU_ARCHIVE: true, // 显示归档
-  MEDIUM_MENU_SEARCH: true, // 显示搜索
+  MEDIUM_MENU_SEARCH: false, // 显示搜索
 
   // Widget
   MEDIUM_WIDGET_REVOLVER_MAPS:
     process.env.NEXT_PUBLIC_WIDGET_REVOLVER_MAPS || 'false', // 地图插件
   MEDIUM_WIDGET_TO_TOP: true, // 跳回顶部
 
+  HEXO_WIDGET_ANALYTICS: false, // 显示统计卡
+
   HEO_NOTICE_BAR: [
     { title: '欢迎来到我的博客', url: 'https://www.elysium-everlasting.com' },
     { title: '访问文档中心获取更多帮助', url: 'https://www.elysium-everlasting.cn/about' }
   ],
 
-  HEO_HERO_CATEGORY_1: { title: '请勿点击', url: '/' },
+  HEO_HERO_CATEGORY_1: { title: '文章分类', url: '/category' },
   HEO_HERO_CATEGORY_2: { title: '请勿点击', url: '/' },
   HEO_HERO_CATEGORY_3: { title: '请勿点击', url: '/' },
 

@@ -1,6 +1,10 @@
 import Link from 'next/link'
 import { useState } from 'react'
-
+/**
+ * 支持二级展开的菜单
+ * @param {*} param0
+ * @returns
+ */
 export const MenuItemDrop = ({ link }) => {
   const [show, changeShow] = useState(false)
   const hasSubMenu = link?.subMenus?.length > 0
@@ -13,33 +17,36 @@ export const MenuItemDrop = ({ link }) => {
     <div
       onMouseOver={() => changeShow(true)}
       onMouseOut={() => changeShow(false)}>
-      {/* 不含子菜单 */}
       {!hasSubMenu && (
         <Link
-          target={link?.target}
           href={link?.href}
-          className=' hover:bg-black hover:bg-opacity-10 rounded-2xl flex justify-center items-center px-3 py-1 no-underline tracking-widest'>
+          target={link?.target}
+          className=' menu-link pl-2 pr-4 no-underline tracking-widest pb-1'>
           {link?.icon && <i className={link?.icon} />} {link?.name}
+          {hasSubMenu && <i className='px-2 fa fa-angle-down'></i>}
         </Link>
       )}
-      {/* 含子菜单的按钮 */}
+
       {hasSubMenu && (
         <>
-          <div className='cursor-pointer  hover:bg-black hover:bg-opacity-10 rounded-2xl flex justify-center items-center px-3 py-1 no-underline tracking-widest'>
+          <div className='cursor-pointer menu-link pl-2 pr-4  no-underline tracking-widest pb-1'>
             {link?.icon && <i className={link?.icon} />} {link?.name}
+            <i
+              className={`px-2 fa fa-angle-down duration-300  ${show ? 'rotate-180' : 'rotate-0'}`}></i>
           </div>
         </>
       )}
+
       {/* 子菜单 */}
       {hasSubMenu && (
         <ul
           style={{ backdropFilter: 'blur(3px)' }}
-          className={`${show ? 'visible opacity-100 top-14' : 'invisible opacity-0 top-20'} drop-shadow-md overflow-hidden rounded-xl bg-white dark:bg-[#1e1e1e] transition-all duration-300 z-20 absolute`}>
+          className={`${show ? 'visible opacity-100 top-12' : 'invisible opacity-0 top-20'} drop-shadow-md overflow-hidden rounded-md text-black dark:text-white bg-white dark:bg-black transition-all duration-300 z-20 absolute block  `}>
           {link.subMenus.map((sLink, index) => {
             return (
               <li
                 key={index}
-                className='cursor-pointer hover:bg-blue-600 dark:hover:bg-yellow-600 hover:text-white text-gray-900 dark:text-gray-100  tracking-widest transition-all duration-200 py-1 pr-6 pl-3'>
+                className='cursor-pointer hover:bg-indigo-500 hover:text-white tracking-widest transition-all duration-200 dark:border-gray-800  py-1 pr-6 pl-3'>
                 <Link href={sLink.href} target={link?.target}>
                   <span className='text-sm text-nowrap font-extralight'>
                     {link?.icon && <i className={sLink?.icon}> &nbsp; </i>}

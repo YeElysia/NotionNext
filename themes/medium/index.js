@@ -38,6 +38,8 @@ import Hero from './components/Hero'
 import { NoticeBar } from './components/NoticeBar'
 import Header from './components/Header'
 import PostHeader from './components/PostHeader'
+import CategoryCard from './components/CategoryCard'
+import SideRight from './components/SideRight'
 
 // 主题全局状态
 const ThemeGlobalMedium = createContext()
@@ -50,11 +52,11 @@ export const useMediumGlobal = () => useContext(ThemeGlobalMedium)
  * @constructor
  */
 const LayoutBase = props => {
-  const { children, showInfoCard = true, post, notice } = props
+  const { children, showInfoCard = true, post, notice, className } = props
   const { locale } = useGlobal()
   const router = useRouter()
   const [tocVisible, changeTocVisible] = useState(false)
-  const { onLoading, fullWidth,isDarkMode } = useGlobal()
+  const { onLoading, fullWidth, isDarkMode } = useGlobal()
   const [slotRight, setSlotRight] = useState(null)
 
   useEffect(() => {
@@ -74,84 +76,67 @@ const LayoutBase = props => {
   return (
     <ThemeGlobalMedium.Provider value={{ tocVisible, changeTocVisible }}>
       {/* CSS样式 */}
-      <Style />
-
+      <Style />S
       <div
         id='theme-medium'
-        className={`${siteConfig('FONT_STYLE')} bg-white dark:bg-hexo-black-gray w-full h-full min-h-screen justify-center dark:text-gray-300 scroll-smooth`}>
-        <main
-          id='wrapper'
-          className={
-            (JSON.parse(siteConfig('LAYOUT_SIDEBAR_REVERSE'))
-              ? 'flex-row-reverse'
-              : '') + 'relative flex justify-between w-full h-full mx-auto'
-          }>
-          {/* 桌面端左侧菜单 */}
-          {/* <LeftMenuBar/> */}
+        className={`${siteConfig('FONT_STYLE')} bg-white dark:bg-black w-full h-full min-h-screen justify-center dark:text-gray-300 scroll-smooth`}>
+        {/* 顶部导航 */}
+        <Header {...props} />
 
-          {/* 主区 */}
-          <div id='container-wrapper' className='w-full relative z-10'>
-            <header>
-              {/* 顶部导航 */}
-              <Header {...props} />
+        <div className='flex flex-row justify-center mt-16 mx-8'>
+          <main
+            id='wrapper'
+            className={
+              (JSON.parse(siteConfig('LAYOUT_SIDEBAR_REVERSE'))
+                ? 'flex-row-reverse'
+                : '') + 'relative flex justify-between w-full h-full mx-auto'
+            }>
+            {/* 桌面端左侧菜单 */}
+            {/* <LeftMenuBar/> */}
 
-              {/* 通知横幅 */}
-              {router.route === '/' ? (
-                <>
-                  <NoticeBar />
-                </>
-              ) : null}
-              {fullWidth ? null : (
-                <PostHeader {...props} isDarkMode={isDarkMode} />
-              )}
-            </header>
+            {/* 主区 */}
+            <div id='container-wrapper' className='w-full relative z-10'>
+              <header>
+                {/* 通知横幅 */}
+                {router.route === '/' ? (
+                  <>
+                    <NoticeBar />
+                    <Hero {...props} />
+                  </>
+                ) : null}
+                {fullWidth ? null : (
+                  <PostHeader {...props} isDarkMode={isDarkMode} />
+                )}
+              </header>
 
-            <div
-              id='container-inner'
-              className={`px-7 ${fullWidth || router.pathname === '/' ? '' : 'max-w-5xl'} justify-center mx-auto min-h-screen`}>
-              <Transition
-                show={!onLoading}
-                appear={true}
-                enter='transition ease-in-out duration-700 transform order-first'
-                enterFrom='opacity-0 translate-y-16'
-                enterTo='opacity-100'
-                leave='transition ease-in-out duration-300 transform'
-                leaveFrom='opacity-100'
-                leaveTo='opacity-0 -translate-y-16'
-                unmount={false}>
-                {slotTop}
-                {children}
-              </Transition>
+              <div
+                id='container-inner'
+                className={`px-7 ${fullWidth || router.pathname === '/' ? '' : 'max-w-5xl'} justify-center mx-auto min-h-screen`}>
+                <Transition
+                  show={!onLoading}
+                  appear={true}
+                  enter='transition ease-in-out duration-700 transform order-first'
+                  enterFrom='opacity-0 translate-y-16'
+                  enterTo='opacity-100'
+                  leave='transition ease-in-out duration-300 transform'
+                  leaveFrom='opacity-100'
+                  leaveTo='opacity-0 -translate-y-16'
+                  unmount={false}>
+                  {slotTop}
+                  {children}
+                </Transition>
 
-              <JumpToTopButton />
-            </div>
-
-            {/* 底部 */}
-            <Footer title={siteConfig('TITLE')} />
-          </div>
-
-          {/* 桌面端右侧 */}
-          {fullWidth ? null : (
-            <div
-              className={`hidden xl:block border-l dark:border-transparent w-80 flex-shrink-0 relative z-10 ${siteConfig('MEDIUM_RIGHT_PANEL_DARK', null, CONFIG) ? 'bg-hexo-black-gray dark' : ''}`}>
-              <div className='py-14 px-6 sticky top-0'>
-                <Tabs>
-                  {slotRight}
-                  <div key={locale.NAV.ABOUT}>
-                    {router.pathname !== '/search' && (
-                      <SearchInput className='mt-6  mb-12' />
-                    )}
-                    {showInfoCard && <InfoCard {...props} />}
-                    {siteConfig('MEDIUM_WIDGET_REVOLVER_MAPS', null, CONFIG) ===
-                      'true' && <RevolverMaps />}
-                  </div>
-                </Tabs>
-                <Announcement post={notice} />
-                <Live2D />
+                <JumpToTopButton />
               </div>
+
+              {/* 底部 */}
+              <Footer title={siteConfig('TITLE')} />
             </div>
-          )}
-        </main>
+          </main>
+
+          {/* 右侧栏 */}
+          <SideRight {...props} />
+        </div>
 
         {/* 移动端底部导航栏 */}
         <BottomMenuBar {...props} className='block md:hidden' />
@@ -177,7 +162,6 @@ const LayoutIndex = props => {
 const LayoutPostList = props => {
   return (
     <>
-      <Hero {...props} />
       {siteConfig('POST_LIST_STYLE') === 'page' ? (
         <BlogPostListPage {...props} />
       ) : (
@@ -363,28 +347,15 @@ const LayoutCategoryIndex = props => {
   const { locale } = useGlobal()
   return (
     <>
-      <div className='bg-white dark:bg-gray-700 py-10'>
+      <div className='bg-white dark:bg-hexo-black-gray rounded-xl lg:p-6 p-4 '>
         <div className='dark:text-gray-200 mb-5'>
           <i className='mr-4 fas fa-th' />
           {locale.COMMON.CATEGORY}:
         </div>
-        <div id='category-list' className='duration-200 flex flex-wrap'>
+        <div className='w-full flex flex-wrap'>
+          {/* 文章列表  */}
           {categoryOptions?.map(category => {
-            return (
-              <Link
-                key={category.name}
-                href={`/category/${category.name}`}
-                passHref
-                legacyBehavior>
-                <div
-                  className={
-                    'hover:text-black dark:hover:text-white dark:text-gray-300 dark:hover:bg-gray-600 px-5 cursor-pointer py-2 hover:bg-gray-100'
-                  }>
-                  <i className='mr-4 fas fa-folder' />
-                  {category.name}({category.count})
-                </div>
-              </Link>
-            )
+            return <CategoryCard category={category} />
           })}
         </div>
       </div>
