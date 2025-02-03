@@ -51,7 +51,7 @@ const randomIcon = () => {
 const CategoryCard = ({ category }) => {
   return (
     <Link
-    href={`/category/${category.slug}`}
+    href={`/category/${category.name}`}
     className='group relative overflow-hidden bg-gradient-to-r from-teal-400 to-cyan-400 flex h-40 justify-start items-center text-white rounded-xl xl:hover:w-1/3 xl:w-1/4 transition-all duration-500 ease-in m-4 '>
     <div className='font-bold lg:text-xl  pl-5 relative -mt-2 duration-700 ease-in-out transition-all group-hover:scale-[1.5] group-hover:translate-x-5 group-hover:rotate-60'>
       <span>{category.name}</span>
