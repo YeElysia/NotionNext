@@ -150,7 +150,7 @@ const LayoutBase = props => {
                   <div className='w-full flex flex-row justify-center'>
                     <div
                       id='container-inner'
-                      className={`px-7 ${fullWidth || router.pathname === '/' ? '' : 'max-w-5xl'} justify-center mx-auto min-h-screen`}>
+                      className={`px-7 ${fullWidth || router.pathname === '/' ? '' : 'max-w-5xl'} justify-center mx-8 min-h-screen`}>
                       <Transition
                         show={!onLoading}
                         appear={true}
@@ -169,7 +169,7 @@ const LayoutBase = props => {
                     </div>
 
                     {/* 右侧栏 */}
-                    <SideRight {...props}/>
+                    <SideRight {...props} />
                   </div>
                 </div>
               )}
