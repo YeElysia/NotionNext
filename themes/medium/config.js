@@ -25,7 +25,7 @@ const CONFIG = {
 
   HEO_NOTICE_BAR: [
     { title: '欢迎来到我的博客', url: 'https://www.elysium-everlasting.com' },
-    { title: '访问文档中心获取更多帮助', url: 'https://www.elysium-everlasting.cn/about' }
+    { title: '访问文档中心获取更多帮助', url: 'https://www.elysium-everlasting.com/about' }
   ],
 
   HEO_HERO_CATEGORY_1: { title: '文章分类', url: '/category' },
@@ -38,7 +38,7 @@ const CONFIG = {
   HEO_HERO_TITLE_3: 'version1.1',
   HEO_HERO_TITLE_4: '',
   HEO_HERO_TITLE_5: '',
-  HEO_HERO_TITLE_LINK: 'lhttps://www.elysium-everlasting.cn/',
+  HEO_HERO_TITLE_LINK: 'lhttps://www.elysium-everlasting.com/',
 
   HEO_GROUP_ICONS: [
     {
