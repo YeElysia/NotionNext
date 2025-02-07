@@ -139,7 +139,7 @@ const LayoutBase = props => {
                 </div>
               ) : (
                 <div className='justify-center'>
-                  <header className='w-full mb-4'>
+                  <header className='w-full mb-6'>
                     <PostHeader {...props} isDarkMode={isDarkMode} />
                   </header>
                   <div className='w-full flex flex-row justify-center'>
