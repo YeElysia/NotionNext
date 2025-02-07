@@ -40,6 +40,7 @@ import Header from './components/Header'
 import PostHeader from './components/PostHeader'
 import CategoryCard from './components/CategoryCard'
 import SideRight from './components/SideRight'
+import SlotBar from './components/SlotBar'
 
 // 主题全局状态
 const ThemeGlobalMedium = createContext()
@@ -52,7 +53,14 @@ export const useMediumGlobal = () => useContext(ThemeGlobalMedium)
  * @constructor
  */
 const LayoutBase = props => {
-  const { children, showInfoCard = true, post, notice, className } = props
+  const {
+    children,
+    showInfoCard = true,
+    post,
+    notice,
+    className,
+    slotTop
+  } = props
   const { locale } = useGlobal()
   const router = useRouter()
   const [tocVisible, changeTocVisible] = useState(false)
@@ -70,8 +78,6 @@ const LayoutBase = props => {
       setSlotRight(null)
     }
   }, [post])
-
-  const slotTop = <BlogPostBar {...props} />
 
   return (
     <ThemeGlobalMedium.Provider value={{ tocVisible, changeTocVisible }}>
@@ -101,18 +107,16 @@ const LayoutBase = props => {
                   <div className='w-full'>
                     <header>
                       {/* 通知横幅 */}
-                      {router.route === '/' ? (
-                        <>
-                          <NoticeBar />
-                          <Hero {...props} />
-                        </>
-                      ) : null}
+                      <>
+                        <NoticeBar />
+                        <Hero {...props} />
+                      </>
                       <PostHeader {...props} isDarkMode={isDarkMode} />
                     </header>
 
                     <div
                       id='container-inner'
-                      className={`px-7 ${fullWidth || router.pathname === '/' ? '' : 'max-w-5xl'} justify-center mx-auto min-h-screen`}>
+                      className={`px-7 justify-center mx-auto min-h-screen`}>
                       <Transition
                         show={!onLoading}
                         appear={true}
@@ -134,23 +138,14 @@ const LayoutBase = props => {
                   <SideRight {...props} />
                 </div>
               ) : (
-                <div className='flex flex-col justify-center'>
-                  {' '}
+                <div className='justify-center'>
                   <header className='w-full mb-4'>
-                    {/* 通知横幅 */}
-                    {router.route === '/' ? (
-                      <>
-                        <NoticeBar />
-                        <Hero {...props} />
-                      </>
-                    ) : null}
-
                     <PostHeader {...props} isDarkMode={isDarkMode} />
                   </header>
                   <div className='w-full flex flex-row justify-center'>
                     <div
                       id='container-inner'
-                      className={`px-7 ${fullWidth || router.pathname === '/' ? '' : 'max-w-5xl'} justify-center mx-8 min-h-screen`}>
+                      className={`px-7 max-w-5xl justify-center mx-2 min-h-screen w-full`}>
                       <Transition
                         show={!onLoading}
                         appear={true}
@@ -202,13 +197,14 @@ const LayoutIndex = props => {
  */
 const LayoutPostList = props => {
   return (
-    <>
+    <div className='pt-8'>
+      <SlotBar {...props} />
       {siteConfig('POST_LIST_STYLE') === 'page' ? (
         <BlogPostListPage {...props} />
       ) : (
         <BlogPostListScroll {...props} />
       )}
-    </>
+    </div>
   )
 }
 
