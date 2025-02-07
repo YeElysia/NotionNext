@@ -15,7 +15,7 @@ import { useRouter } from 'next/router'
  * @returns {JSX.Element}
  * @constructor
  */
-const BlogPostListPage = ({ page = 1, posts = [], postCount }) => {
+const BlogPostListPage = ({ page = 1, posts = [], postCount, siteInfo }) => {
   const { NOTION_CONFIG } = useGlobal()
   const POSTS_PER_PAGE = siteConfig('POSTS_PER_PAGE', null, NOTION_CONFIG)
   const totalPage = Math.ceil(postCount / POSTS_PER_PAGE)
@@ -39,9 +39,16 @@ const BlogPostListPage = ({ page = 1, posts = [], postCount }) => {
         <div className='w-full justify-center'>
           <div id='posts-wrapper'>
             {/* 文章列表  */}
-            {posts?.map(post => (
-              <BlogPostCard key={post.id} post={post} />
-            ))}
+            <div className='space-y-6 px-2'>
+              {posts?.map(post => (
+                <BlogPostCard
+                  index={posts.indexOf(post)}
+                  key={post.id}
+                  post={post}
+                  siteInfo={siteInfo}
+                />
+              ))}
+            </div>
           </div>
           <PaginationSimple page={page} totalPage={totalPage} />
         </div>
