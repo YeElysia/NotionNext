@@ -21,6 +21,25 @@ const BlogPostListPage = ({ page = 1, posts = [], postCount, siteInfo }) => {
   const totalPage = Math.ceil(postCount / POSTS_PER_PAGE)
   const router = useRouter()
 
+  const dots_out = Array.from({ length: 60 }, (_, index) => {
+    const rotateAngle = (index + 1) * 6
+    return (
+      <div
+        key={index}
+        className='dot out'
+        style={{ '--rotate-angle': `${rotateAngle}deg` }}></div>
+    )
+  })
+  const dots_in = Array.from({ length: 30 }, (_, index) => {
+    const rotateAngle = (index + 1) * 12
+    return (
+      <div
+        key={index}
+        className='dot in'
+        style={{ '--rotate-angle': `${rotateAngle}deg` }}></div>
+    )
+  })
+
   if (!posts || posts.length === 0) {
     return <BlogPostListEmpty />
   }
@@ -28,10 +47,10 @@ const BlogPostListPage = ({ page = 1, posts = [], postCount, siteInfo }) => {
   return (
     <>
       {router.pathname === '/' ? (
-        <div className='w-full justify-center' my-5>
-          <div className='w-full my-5 text-center text-xl'>
-            <h1 className='text-center'>本站主页维修中</h1>
-            <h1 className='text-center'>查看文章请点击最上方导航栏</h1>
+        <div className='w-full h-full relative justify-center content-center my-5 p-5 translate-y-[200px]'>
+          <div className='loading w-full relative m-6 text-center text-xl flex flex-col animate-[spin_6.3s_linear_infinite]'>
+            <div className='outdiv '>{dots_out}</div>
+            <div className='indiv'>{dots_in}</div>
           </div>
         </div>
       ) : null}

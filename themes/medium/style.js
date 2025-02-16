@@ -10,7 +10,7 @@ const Style = () => {
       // 主题色
       @theme {
         --color-valya-qing: #00ffdc;
-        --color-valya-lan:  #3097e8;
+        --color-valya-lan: #3097e8;
       }
 
       // 底色
@@ -92,6 +92,161 @@ const Style = () => {
       * {
         scrollbar-width: thin;
         scrollbar-color: #49b1f5 transparent;
+      }
+
+      @keyframes moveBlack {
+        0% {
+          animation-timing-function: ease-in;
+        }
+        25% {
+          transform: translate3d(0, 100%, 0.625rem);
+          animation-timing-function: ease-out;
+        }
+        50% {
+          transform: translate3d(0, 200%, 0);
+          animation-timing-function: ease-in;
+        }
+        75% {
+          transform: translate3d(0, 100%, -0.625rem);
+          animation-timing-function: ease-out;
+        }
+      }
+
+      @keyframes moveWhite {
+        0% {
+          animation-timing-function: ease-in;
+          transform: rotateX(-13deg) rotateY(360deg);
+        }
+        25% {
+          transform: translate3d(0, -100%, -0.625rem);
+          animation-timing-function: ease-out;
+        }
+        50% {
+          transform: translate3d(0, -200%, 0);
+          animation-timing-function: ease-in;
+        }
+        75% {
+          transform: translate3d(0, -100%, 0.625rem);
+          animation-timing-function: ease-out;
+        }
+        100% {
+          transform: rotateX(-13deg) rotateY(0deg);
+        }
+      }
+
+      @keyframes moveY {
+        0% {
+          transform: rotateX(0deg) rotateY(0deg);
+        }
+        100% {
+          transform: rotateX(0deg) rotateY(360deg);
+        }
+      }
+
+      @keyframes moveX {
+        0% {
+          transform: rotateX(0deg) rotateY(0deg);
+        }
+        100% {
+          transform: rotateX(360deg) rotateY(0deg);
+        }
+      }
+
+      .outdiv {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform-style: preserve-3d;
+        animation: moveY 5s linear infinite;
+      }
+        
+      .indiv {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform-style: preserve-3d;
+        animation: moveX 4s linear infinite;
+      }
+
+      .dot {
+        --rotate-angle: 0deg;
+        position: absolute;
+        width: 0.625rem;
+        height: 0.625rem;
+        perspective: 4000rem;
+        transform-style: preserve-3d;
+        &.out {
+          transform: rotate(var(--rotate-angle)) translateY(-200px);
+        }
+
+        &.in {
+          transform: rotate(var(--rotate-angle)) translateY(-100px);
+          animation-delay: 1000ms;
+        }
+      }
+      .dot::before,
+      .dot::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+      }
+      .out::before {
+        background: #3097e8;
+        top: -100%;
+        animation: moveBlack 2000ms infinite;
+      }
+      .out::after {
+        background: #00ffdc;
+        top: 100%;
+        animation: moveWhite 2000ms infinite;
+      }
+      .in::before {
+        background: #f57600;
+        top: -100%;
+        animation: moveBlack 2000ms infinite;
+      }
+      .in::after {
+        background: #f5a623;
+        top: 100%;
+        animation: moveWhite 2000ms infinite;
+      }
+      .dot:nth-child(6n + 1) {
+        &::before,
+        &::after {
+          animation-delay: -333.333ms;
+        }
+      }
+      .dot:nth-child(6n + 2) {
+        &::before,
+        &::after {
+          animation-delay: -666.666ms;
+        }
+      }
+      .dot:nth-child(6n + 3) {
+        &::before,
+        &::after {
+          animation-delay: -999.999ms;
+        }
+      }
+      .dot:nth-child(6n + 4) {
+        &::before,
+        &::after {
+          animation-delay: -1333.332ms;
+        }
+      }
+      .dot:nth-child(6n + 5) {
+        &::before,
+        &::after {
+          animation-delay: -1666.665ms;
+        }
+      }
+      .dot:nth-child(6n + 6) {
+        &::before,
+        &::after {
+          animation-delay: -1999.998ms;
+        }
       }
     `}</style>
   )
