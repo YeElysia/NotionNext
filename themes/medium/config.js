@@ -33,18 +33,21 @@ const CONFIG = {
 
   HEO_NOTICE_BAR: [
     { title: '欢迎来到我的博客', url: 'https://blog.elysium-everlasting.com' },
-    { title: '访问文档中心获取更多帮助', url: 'https://blog.elysium-everlasting.com/about' }
+    {
+      title: '点击传送文档中枢',
+      url: 'https://blog.elysium-everlasting.com/about'
+    }
   ],
 
   HEO_HERO_CATEGORY_1: { title: '文章分类', url: '/category' },
-  HEO_HERO_CATEGORY_2: { title: '请勿点击', url: '/' },
-  HEO_HERO_CATEGORY_3: { title: '请勿点击', url: '/' },
+  HEO_HERO_CATEGORY_2: { title: '历史归档', url: '/archive' },
+  HEO_HERO_CATEGORY_3: { title: '文档中枢', url: '/about' },
 
   // 英雄区(首页顶部大卡)
   HEO_HERO_TITLE_1: '永世乐土',
   HEO_HERO_TITLE_2: '花与鸟与箭',
   HEO_HERO_TITLE_3: 'version1.2.0',
-  HEO_HERO_TITLE_LINK: 'lhttps://blog.elysium-everlasting.com/',
+  HEO_HERO_TITLE_LINK: 'https://blog.elysium-everlasting.com/',
 
   HEO_GROUP_ICONS: [
     {
@@ -52,7 +55,8 @@ const CONFIG = {
       img_1: '/images/heo/20239df3f66615b532ce571eac6d14ff21cf072602.webp',
       color_1: '#989bf8',
       title_2: 'Linux',
-      img_2: 'https://raw.githubusercontent.com/YeElysia/Yee_Image/refs/heads/master/Icons/linux.png',
+      img_2:
+        'https://raw.githubusercontent.com/YeElysia/Yee_Image/refs/heads/master/Icons/linux.png',
       color_2: '#ffffff'
     },
     {
@@ -65,7 +69,8 @@ const CONFIG = {
     },
     {
       title_1: 'Premiere Pro',
-      img_1: 'https://raw.githubusercontent.com/YeElysia/Yee_Image/refs/heads/master/Icons/Pr.png',
+      img_1:
+        'https://raw.githubusercontent.com/YeElysia/Yee_Image/refs/heads/master/Icons/Pr.png',
       color_1: '#989bf8',
       title_2: 'Python',
       img_2: '/images/heo/20235c0731cd4c0c95fc136a8db961fdf963071502.webp',
@@ -89,12 +94,14 @@ const CONFIG = {
     },
     {
       title_1: 'C++',
-      img_1: 'https://raw.githubusercontent.com/YeElysia/Yee_Image/refs/heads/master/Icons/cpp.png',
+      img_1:
+        'https://raw.githubusercontent.com/YeElysia/Yee_Image/refs/heads/master/Icons/cpp.png',
       color_1: '#ffffff',
       title_2: 'OpenCV',
-      img_2: 'https://raw.githubusercontent.com/YeElysia/Yee_Image/refs/heads/master/Icons/opencv.png',
+      img_2:
+        'https://raw.githubusercontent.com/YeElysia/Yee_Image/refs/heads/master/Icons/opencv.png',
       color_2: '#2e3a41'
     }
-  ],
+  ]
 }
 export default CONFIG
