@@ -31,17 +31,19 @@ export default function PostHeader({ post, siteInfo, isDarkMode }) {
           height: 100%;
           top: 0;
           left: 0;
-          box-shadow: 110px -130px 500px 100px ${isDarkMode
-              ? '#CA8A04'
-              : '#0060e0'} inset;
+          box-shadow: 110px -130px 500px 100px
+            ${isDarkMode ? '#CA8A04' : '#0060e0'} inset;
         }
       `}</style>
 
       <div
-        className={`${isDarkMode ? 'bg-gradient-to-r from-[#CA8A04] to-transparent' : 'bg-gradient-to-r from-[#0060e0] to-transparent'} absolute top-0 w-full h-full py-10 flex justify-center items-center`}>
+        className={`${isDarkMode ? 'bg-[#CA8A04]' : 'bg-[#0060e0]'} absolute top-0 w-full h-full py-10 flex justify-center items-center`}>
         {/* 文章背景图 */}
         <div
           id='post-cover-wrapper'
+          style={{
+            filter: 'blur(15px)'
+          }}
           className='coverdiv lg:opacity-50 lg:translate-x-96 lg:rotate-12'>
           <LazyImage
             id='post-cover'
@@ -69,6 +71,25 @@ export default function PostHeader({ post, siteInfo, isDarkMode }) {
                 </Link>
               </>
             )}
+
+            {post.tagItems && (
+              <div className='hidden md:flex justify-center flex-nowrap overflow-x-auto'>
+                {post.tagItems.map((tag, index) => (
+                  <Link
+                    key={index}
+                    href={`/tag/${encodeURIComponent(tag.name)}`}
+                    passHref
+                    className={
+                      'cursor-pointer inline-block text-gray-50 hover:text-white duration-200 py-0.5 px-1 whitespace-nowrap '
+                    }>
+                    <div className='font-light flex items-center'>
+                      <HashTag className='text-gray-200 stroke-2 mr-0.5 w-3 h-3' />{' '}
+                      {tag.name + (tag.count ? `(${tag.count})` : '')}{' '}
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* 文章Title */}
@@ -83,7 +104,10 @@ export default function PostHeader({ post, siteInfo, isDarkMode }) {
           <section className='flex-wrap dark:text-gray-200 text-opacity-70 shadow-text-md flex text-sm  justify-center md:justify-start mt-4 text-white font-light leading-8'>
             <div className='flex justify-center '>
               <div className='mr-2'>
-                <WordCount />
+                <WordCount
+                  wordCount={post.wordCount}
+                  readTime={post.readTime}
+                />
               </div>
               {post?.type !== 'Page' && (
                 <>
