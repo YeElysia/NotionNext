@@ -82,7 +82,7 @@ const LayoutBase = props => {
   return (
     <ThemeGlobalMedium.Provider value={{ tocVisible, changeTocVisible }}>
       {/* CSS样式 */}
-      <Style />S
+      <Style />
       <div
         id='theme-medium'
         className={`${siteConfig('FONT_STYLE')} bg-white dark:bg-black w-full h-full min-h-screen justify-center dark:text-gray-300 scroll-smooth`}>
@@ -244,7 +244,7 @@ const LayoutSlug = props => {
       )
     }
   }, [post])
-
+  
   return (
     <div>
       {/* 文章锁 */}

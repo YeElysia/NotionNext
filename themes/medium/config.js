@@ -46,7 +46,7 @@ const CONFIG = {
   // 英雄区(首页顶部大卡)
   HEO_HERO_TITLE_1: '永世乐土',
   HEO_HERO_TITLE_2: '花与鸟与箭',
-  HEO_HERO_TITLE_3: 'version1.2.0',
+  HEO_HERO_TITLE_3: 'version1.3.0',
   HEO_HERO_TITLE_LINK: 'https://blog.elysium-everlasting.com/',
 
   HEO_GROUP_ICONS: [
