@@ -36,6 +36,10 @@ const CONFIG = {
     {
       title: '点击传送文档中枢',
       url: 'https://blog.elysium-everlasting.com/about'
+    },
+    {
+      title: '这是我的恋爱日记呀',
+      url: 'https://blog.elysium-everlasting.com/Valya/VALYA'
     }
   ],
 
