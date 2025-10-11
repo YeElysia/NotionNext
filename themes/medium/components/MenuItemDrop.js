@@ -1,4 +1,5 @@
-import Link from 'next/link'
+import SmartLink from '@/components/SmartLink'
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 /**
  * 支持二级展开的菜单
@@ -27,14 +28,18 @@ export const MenuItemDrop = ({ link }) => {
         </Link>
       )}
 
-      {hasSubMenu && (
-        <>
-          <div className='cursor-pointer menu-link pl-2 pr-4  no-underline tracking-widest pb-1'>
+      {!hasSubMenu && (
+        <div
+          className={
+            'px-3 h-full whitespace-nowrap duration-300 text-sm justify-between dark:text-gray-300 cursor-pointer flex flex-nowrap items-center ' +
+            (selected
+              ? 'bg-green-600 text-white hover:text-white'
+              : 'hover:text-green-600')
+          }>
+          <SmartLink href={link?.href} target={link?.target}>
             {link?.icon && <i className={link?.icon} />} {link?.name}
-            <i
-              className={`px-2 fa fa-angle-down duration-300  ${show ? 'rotate-180' : 'rotate-0'}`}></i>
-          </div>
-        </>
+          </SmartLink>
+        </div>
       )}
 
       {/* 子菜单 */}
@@ -45,14 +50,14 @@ export const MenuItemDrop = ({ link }) => {
           {link.subMenus.map((sLink, index) => {
             return (
               <li
-                key={index}
-                className='cursor-pointer hover:bg-indigo-500 hover:text-white tracking-widest transition-all duration-200 dark:border-gray-800  py-1 pr-6 pl-3'>
-                <Link href={sLink.href} target={link?.target}>
-                  <span className='text-sm text-nowrap font-extralight'>
+                key={sLink.id}
+                className='not:last-child:border-b-0 border-b text-gray-700 dark:text-gray-200  hover:bg-gray-50 dark:hover:bg-gray-900 tracking-widest transition-all duration-200  dark:border-gray-800 py-3 pr-6 pl-3'>
+                <SmartLink href={sLink.href} target={link?.target}>
+                  <span className='text-xs font-extralight'>
                     {link?.icon && <i className={sLink?.icon}> &nbsp; </i>}
                     {sLink.title}
                   </span>
-                </Link>
+                </SmartLink>
               </li>
             )
           })}
