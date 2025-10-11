@@ -1,9 +1,5 @@
 import LazyImage from '@/components/LazyImage'
 import { siteConfig } from '@/lib/config'
-<<<<<<< HEAD
-=======
-import Link from 'next/link'
->>>>>>> 5627ad1fd2e0d443f2841abcaa8a6d37b5c2e4a1
 import { useGlobal } from '@/lib/global'
 import SmartLink from '@/components/SmartLink'
 import CONFIG from '../config'
