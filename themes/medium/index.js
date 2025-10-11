@@ -414,6 +414,7 @@ const LayoutCategoryIndex = props => {
         <div className='w-full flex flex-wrap'>
           {/* 文章列表  */}
           {categoryOptions?.map(category => {
+            // return <CategoryCard category={category} />
             return (
               <SmartLink
                 key={category.name}
