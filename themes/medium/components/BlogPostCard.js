@@ -94,7 +94,7 @@ const BlogPostCard = ({ index, post, showSummary, siteInfo }) => {
             </div>
           </div>
         )}
-      </div>
+      </header>
     </div>
   )
 }
