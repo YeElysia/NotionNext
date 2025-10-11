@@ -8,7 +8,7 @@ import { siteConfig } from '@/lib/config'
 import { useGlobal } from '@/lib/global'
 import { isBrowser } from '@/lib/utils'
 import { Transition } from '@headlessui/react'
-import Link from 'next/link'
+import SmartLink from '@/components/SmartLink'
 import { useRouter } from 'next/router'
 import { createContext, useContext, useEffect, useState } from 'react'
 import Announcement from './components/Announcement'
@@ -414,7 +414,22 @@ const LayoutCategoryIndex = props => {
         <div className='w-full flex flex-wrap'>
           {/* 文章列表  */}
           {categoryOptions?.map(category => {
-            return <CategoryCard category={category} />
+            // return <CategoryCard category={category} />
+            return (
+              <SmartLink
+                key={category.name}
+                href={`/category/${category.name}`}
+                passHref
+                legacyBehavior>
+                <div
+                  className={
+                    'hover:text-black dark:hover:text-white dark:text-gray-300 dark:hover:bg-gray-600 px-5 cursor-pointer py-2 hover:bg-gray-100'
+                  }>
+                  <i className='mr-4 fas fa-folder' />
+                  {category.name}({category.count})
+                </div>
+              </SmartLink>
+            )
           })}
         </div>
       </div>
