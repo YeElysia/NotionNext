@@ -8,33 +8,51 @@ import { useState } from 'react'
  */
 export const MenuItemDrop = ({ link }) => {
   const [show, changeShow] = useState(false)
-  const hasSubMenu = link?.subMenus?.length > 0
+  //   const show = true
+  //   const changeShow = () => {}
+  const router = useRouter()
 
   if (!link || !link.show) {
     return null
   }
+  const hasSubMenu = link?.subMenus?.length > 0
+  const selected = router.pathname === link.href || router.asPath === link.href
 
   return (
     <div
       onMouseOver={() => changeShow(true)}
       onMouseOut={() => changeShow(false)}>
-      {!hasSubMenu && (
-        <Link
+      {/* {!hasSubMenu && (
+        <SmartLink
           href={link?.href}
           target={link?.target}
           className=' menu-link pl-2 pr-4 no-underline tracking-widest pb-1'>
           {link?.icon && <i className={link?.icon} />} {link?.name}
           {hasSubMenu && <i className='px-2 fa fa-angle-down'></i>}
-        </Link>
-      )}
-
-      {!hasSubMenu && (
+        </SmartLink>
+      )} */}
+      {hasSubMenu && (
         <div
           className={
             'px-3 h-full whitespace-nowrap duration-300 text-sm justify-between dark:text-gray-300 cursor-pointer flex flex-nowrap items-center ' +
             (selected
               ? 'bg-green-600 text-white hover:text-white'
               : 'hover:text-green-600')
+          }>
+          <div>
+            {link?.icon && <i className={link?.icon} />} {link?.name}
+            {hasSubMenu && (
+              <i
+                className={`px-2 fas fa-chevron-down duration-500 transition-all ${show ? ' rotate-180' : ''}`}></i>
+            )}
+          </div>
+        </div>
+      )}
+
+      {!hasSubMenu && (
+        <div
+          className={
+            'px-3 h-full whitespace-nowrap duration-300 text-base justify-between dark:text-gray-300 cursor-pointer flex flex-nowrap items-center '
           }>
           <SmartLink href={link?.href} target={link?.target}>
             {link?.icon && <i className={link?.icon} />} {link?.name}
